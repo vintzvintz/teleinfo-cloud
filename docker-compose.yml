@@ -1,0 +1,48 @@
+services:
+  mqtt2prometheus:
+    # build: ./mqtt2prometheus
+    build: https://github.com/hikhvar/mqtt2prometheus.git
+    image: my-mqtt2prometheus
+    container_name: mqtt2prometheus
+    restart: always
+    volumes:
+      - ./mqtt2prometheus.yaml:/config.yaml
+    
+    # inutile d'exporter ce port 
+    #ports:
+    #  - 9641:9641
+
+
+  prometheus:
+    image: prom/prometheus:v2.42.0
+    container_name: prometheus
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-storage:/prometheus
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    restart: always
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  grafana:
+    image:  grafana/grafana-enterprise
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
+  prometheus-storage:
+
+
+
