@@ -70,4 +70,4 @@ metrics:
     type: counter
     const_labels:
       sensor_type: cbe_test
-      
+

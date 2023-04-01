@@ -19,7 +19,7 @@ services:
     container_name: prometheus
     restart: always
     ports:
-      - 9090:9090
+      - 3001:9090
     volumes:
       - ./prometheus-conf:/etc/prometheus
       - ./prometheus-data:/prometheus
@@ -31,6 +31,7 @@ services:
     restart: always
     ports:
       - 8883:8883
+      # ne pas mapper le port 1883 - réservé à l'accès en local par mqtt2prometheus
 
     volumes:
       - ./mosquitto-conf:/mosquitto/config
