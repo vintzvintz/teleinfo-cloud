@@ -1,17 +1,18 @@
 services:
   mqtt2prometheus:
-    # build: ./mqtt2prometheus
     build: https://github.com/hikhvar/mqtt2prometheus.git
     image: my-mqtt2prometheus
     container_name: mqtt2prometheus
     restart: always
     volumes:
       - ./mqtt2prometheus.yaml:/config.yaml
-    
+
     # inutile d'exporter ce port 
     #ports:
     #  - 9641:9641
 
+    networks:
+      - teleinfo
 
   prometheus:
     image: prom/prometheus:v2.42.0
@@ -20,16 +21,21 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-storage:/prometheus
+      - ./prometheus-conf:/etc/prometheus
+      - ./prometheus-data:/prometheus
+    networks:
+      - teleinfo
 
   mosquitto:
-    image: eclipse-mosquitto:2.0
+    image: eclipse-mosquitto:2.0-openssl
     restart: always
     ports:
-      - 1883:1883
+      - 8883:8883
+
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto-conf:/mosquitto/config
+    networks:
+      - teleinfo
 
   grafana:
     image:  grafana/grafana-enterprise
@@ -38,11 +44,25 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - grafana-storage:/var/lib/grafana
+      - ./grafana-data:/var/lib/grafana
+      - ./grafana-logs:/var/log/grafana
+        #      - ./grafana-conf:/etc/grafana
+    networks:
+      - traefik
+      - teleinfo
 
-volumes:
-  grafana-storage:
-  prometheus-storage:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.network=traefik.lan"
+      - "traefik.http.routers.to-teleinfo.rule=Host(`teleinfo.vintz.fr`)"
+      - "traefik.http.routers.to-teleinfo.tls.certresolver=vintz-wildcard"
+      - "traefik.http.routers.to-teleinfo.tls.domains[0].main=*.vintz.fr"
+      - "traefik.http.services.teleinfo.loadbalancer.server.port=3000"
 
+networks:
+  teleinfo:
 
+  traefik:
+    name: "traefik-lan"
+    external: true
 
