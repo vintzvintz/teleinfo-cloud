@@ -42,8 +42,8 @@ services:
     image:  grafana/grafana-enterprise
     container_name: grafana
     restart: always
-    ports:
-      - 3000:3000
+      #    ports:
+      # - 3002:3000
     volumes:
       - ./grafana-data:/var/lib/grafana
       - ./grafana-logs:/var/log/grafana
@@ -54,7 +54,7 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.network=traefik.lan"
+      - "traefik.docker.network=traefik-lan"
       - "traefik.http.routers.to-teleinfo.rule=Host(`teleinfo.vintz.fr`)"
       - "traefik.http.routers.to-teleinfo.tls.certresolver=vintz-wildcard"
       - "traefik.http.routers.to-teleinfo.tls.domains[0].main=*.vintz.fr"
