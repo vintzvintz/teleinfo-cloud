@@ -8,8 +8,8 @@ services:
       - ./mqtt2prometheus.yaml:/config.yaml
 
     # inutile d'exporter ce port 
-    #ports:
-    #  - 9641:9641
+    #    ports:
+    #      - 9941:9641
 
     networks:
       - teleinfo
@@ -30,8 +30,10 @@ services:
     image: eclipse-mosquitto:2.0-openssl
     restart: always
     ports:
+      # port 8883 configure en tls-psk
       - 8883:8883
-      # ne pas mapper le port 1883 - réservé à l'accès en local par mqtt2prometheus
+      # port 1883 configuré en anonymous sans tls - ne pas mapper à l'extérieur
+      # port 1883 réservé à l'accès en local par mqtt2prometheus
 
     volumes:
       - ./mosquitto-conf:/mosquitto/config

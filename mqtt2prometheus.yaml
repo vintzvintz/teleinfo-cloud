@@ -162,3 +162,10 @@ metrics:
     const_labels:
       sensor_type: linky_calc
 
+  - prom_name: esp_free_memory
+    mqtt_name: esp_free_mem
+    help: Memoire libre ESP32
+    type: gauge
+    const_labels:
+      sensor_type: esp32
+
