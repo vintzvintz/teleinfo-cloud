@@ -32,42 +32,133 @@ json_parsing:
 # This is a list of valid metrics. Only metrics listed here will be exported
 metrics:
     # The name of the metric in prometheus
-  - prom_name: Puissance_Apparente
+  - prom_name: SINSTS
     # The name of the metric in a MQTT JSON message
-    mqtt_name: tic.PAPP.val
+    mqtt_name: tic.SINSTS.val
     # The prometheus help text for this metric
-    help: Puissance apparente
+    help: Puissance apparente instantanée
     # The prometheus type for this metric. Valid values are: "gauge" and "counter"
     type: gauge
     # A map of string to string for constant labels. This labels will be attached to every prometheus metric
     const_labels:
-      sensor_type: cbe_test
+      sensor_type: linky
 
-  - prom_name: I_inst
-    mqtt_name: tic.IINST.val
-    help: Intensité  instantanée
+  - prom_name: IRMS1
+    mqtt_name: tic.IRMS1.val
+    help: Intensité instantanée
     type: gauge
     const_labels:
-      sensor_type: cbe_test
+      sensor_type: linky
 
-  - prom_name: index_heures_pleines
-    mqtt_name: tic.HCHP.val
-    help: Energie heures pleine
+  - prom_name: UMOY1
+    mqtt_name: tic.UMOY1.val
+    help: Tension moyenne
+    type: gauge
+    const_labels:
+      sensor_type: linky
+  
+  - prom_name: URMS1
+    mqtt_name: tic.URMS1.val
+    help: Tension instantanée
+    type: gauge
+    const_labels:
+      sensor_type: linky
+  
+  - prom_name: EAST
+    mqtt_name: tic.EAST.val
+    help: Index énergie active soutirée
     type: counter
     const_labels:
-      sensor_type: cbe_test
+      sensor_type: linky
 
-  - prom_name: index_heures_creuses
-    mqtt_name: tic.HCHC.val
-    help: Energie heures creuses
-    type: counter
+  - prom_name: CCASN
+    mqtt_name: tic.CCASN.val
+    help: Courbe de charge
+    type: gauge
     const_labels:
-      sensor_type: cbe_test
+      sensor_type: linky
+ 
+  - prom_name: CCASN_1
+    mqtt_name: tic.CCASN-1.val
+    help: Courbe de charge N-1
+    type: gauge
+    const_labels:
+      sensor_type: linky
       
-  - prom_name: index_base
-    mqtt_name: tic.BASE.val
-    help: Energie base
-    type: counter
+  - prom_name: SMAXSN
+    mqtt_name: tic.SMAXSN.val
+    help: Puissance apparente max J
+    type: gauge
     const_labels:
-      sensor_type: cbe_test
+      sensor_type: linky
+
+  - prom_name: SMAXSN_1
+    mqtt_name: tic.SMAXSN-1.val
+    help: Puissance apparente max J-1
+    type: gauge
+    const_labels:
+      sensor_type: linky
+
+  - prom_name: PACT01
+    mqtt_name: tic.PACT01.val
+    help: Puissance active (1)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT02
+    mqtt_name: tic.PACT02.val
+    help: Puissance active (2)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT03
+    mqtt_name: tic.PACT03.val
+    help: Puissance active (3)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT04
+    mqtt_name: tic.PACT04.val
+    help: Puissance active (4)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT05
+    mqtt_name: tic.PACT05.val
+    help: Puissance active (5)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT06
+    mqtt_name: tic.PACT06.val
+    help: Puissance active (6)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT07
+    mqtt_name: tic.PACT07.val
+    help: Puissance active (7)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT08
+    mqtt_name: tic.PACT08.val
+    help: Puissance active (8)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
+
+  - prom_name: PACT09
+    mqtt_name: tic.PACT09.val
+    help: Puissance active (9)
+    type: gauge
+    const_labels:
+      sensor_type: linky_calc
 
