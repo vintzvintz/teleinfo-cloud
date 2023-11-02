@@ -15,11 +15,14 @@ services:
       - teleinfo
 
   prometheus:
-    image: prom/prometheus:v2.42.0
+    image: prom/prometheus:v2.47.2
     container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.size=1GB'
     restart: always
-      #    ports:
-      #      - 3001:9090
+#    ports:
+#      - 3001:9090
     volumes:
       - ./prometheus-conf:/etc/prometheus
       - ./prometheus-data:/prometheus
