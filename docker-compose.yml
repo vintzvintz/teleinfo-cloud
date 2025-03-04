@@ -60,6 +60,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-lan"
+      - "traefik.http.routers.to-teleinfo.ruleSyntax=v3"
       - "traefik.http.routers.to-teleinfo.rule=Host(`teleinfo.vintz.fr`)"
       - "traefik.http.routers.to-teleinfo.tls.certresolver=vintz-wildcard"
       - "traefik.http.routers.to-teleinfo.tls.domains[0].main=*.vintz.fr"
